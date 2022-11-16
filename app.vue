@@ -12,8 +12,8 @@ function popUp() {
   Swal.fire({
     title: "Dodaj tłumaczenie",
     html: `
-            <input type="text" id="polish" class="border rounded p-1">
-            <input type="text" id="deutsch" class="border rounded mt-1 p-1">
+            <input placeholder="Polskie słowo" type="text" id="polish" class="border rounded p-1">
+            <input placeholder="Niemieckie słowo" type="text" id="deutsch" class="border rounded mt-1 p-1">
           `,
     width: 400,
     padding: "3em",
@@ -73,6 +73,7 @@ function filterArray() {
 }
 </script>
 <template>
+  <input type="text" placeholder="" />
   <div class="w-full flex flex-col justify-center items-center mt-1">
     <div class="space-x-4">
       <input
