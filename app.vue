@@ -39,27 +39,31 @@ function popUp() {
   }).then(async (res) => {
     console.log(res.value);
     if (res.isConfirmed) {
-      popUp();
-      const req = await $fetch("/api/addWord", {
-        method: "POST",
-        body: {
-          polishName: res.value[0],
-          deutschName: res.value[1],
-        },
-      });
+      if (res.value[0] !== "" && res.value[1] !== "") {
+        const req = await $fetch("/api/addWord", {
+          method: "POST",
+          body: {
+            polishName: res.value[0],
+            deutschName: res.value[1],
+          },
+        });
+        return req;
+      }
       getNewData();
-      return req;
+      popUp();
     }
     if (res.isDenied) {
-      const req = await $fetch("/api/addWord", {
-        method: "POST",
-        body: {
-          polishName: res.value[0],
-          deutschName: res.value[1],
-        },
-      });
+      if (res.value[0] !== "" && res.value[1] !== "") {
+        const req = await $fetch("/api/addWord", {
+          method: "POST",
+          body: {
+            polishName: res.value[0],
+            deutschName: res.value[1],
+          },
+        });
+        return req;
+      }
       getNewData();
-      return req;
     }
   });
 }
