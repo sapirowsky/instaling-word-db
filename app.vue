@@ -83,6 +83,7 @@ function filterArray() {
       <input
         class="w-72 px-3 py-6 text-base border"
         type="text"
+        placeholder="Wyszukaj..."
         v-model="input"
         @change="filterArray()"
       />
