@@ -8,6 +8,10 @@ const data = await $fetch("/api/words", {
 });
 const array = ref(data);
 
+const setColorMode = (newTheme) => (useColorMode().preference = newTheme);
+const filterArray = () =>
+  array.value.filter((e) => e.polishName.includes(input.value));
+
 function popUp() {
   Swal.fire({
     title: "Dodaj tłumaczenie",
@@ -57,23 +61,64 @@ async function addWord(res) {
     },
   });
 }
-function filterArray() {
-  return array.value.filter((item) => item.polishName.includes(input.value));
-}
+useHead({
+  htmlAttrs: {
+    lang: "pl",
+  },
+  bodyAttrs: {
+    class: "bg-white dark:bg-slate-900 text-black dark:text-gray-300",
+  },
+  title: "wordDB",
+  meta: [
+    {
+      hid: "description",
+      name: "description",
+      content: "Baza danych słówek",
+    },
+  ],
+  link: [
+    {
+      rel: "icon",
+      type: "image/x-icon",
+      href: "/favicon.ico",
+    },
+  ],
+});
 </script>
 <template>
-  <input type="text" placeholder="" />
   <div class="w-full flex flex-col justify-center items-center mt-1">
-    <div class="space-x-4">
+    <div class="space-x-4 flex items-center justify-center">
       <input
-        class="w-72 px-3 py-6 text-base border"
+        class="w-72 px-3 py-6 text-base border rounded"
         type="text"
         placeholder="Wyszukaj..."
         v-model="input"
         @change="filterArray()"
       />
-      <button class="px-4 py-6 bg-slate-300 rounded" @click="popUp()">
+      <button
+        class="px-4 py-6 bg-slate-300 rounded text-black"
+        @click="popUp()"
+      >
         Dodaj
+      </button>
+      <button
+        aria-label="Zmień motyw"
+        class="
+          hover:bg-gray-300
+          dark:hover:bg-gray-600
+          h-10
+          w-10
+          grid
+          place-items-center
+          rounded
+          hover:cursor-pointer
+        "
+        @click="
+          setColorMode($colorMode.preference !== 'dark' ? 'dark' : 'light')
+        "
+      >
+        <UiLight v-if="$colorMode.preference === 'dark'" />
+        <UiDark v-else />
       </button>
     </div>
     <div class="mt-2">
