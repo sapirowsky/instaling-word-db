@@ -36,40 +36,25 @@ function popUp() {
       document.querySelector("#polish").value,
       document.querySelector("#deutsch").value,
     ],
-  }).then(async (res) => {
-    console.log(res.value);
-    if (res.isConfirmed) {
-      if (res.value[0] !== "" && res.value[1] !== "") {
-        const req = await $fetch("/api/addWord", {
-          method: "POST",
-          body: {
-            polishName: res.value[0],
-            deutschName: res.value[1],
-          },
-        });
-        return req;
-      }
-      getNewData();
-      popUp();
-    }
-    if (res.isDenied) {
-      if (res.value[0] !== "" && res.value[1] !== "") {
-        const req = await $fetch("/api/addWord", {
-          method: "POST",
-          body: {
-            polishName: res.value[0],
-            deutschName: res.value[1],
-          },
-        });
-        return req;
-      }
-      getNewData();
-    }
+  }).then((res) => {
+    if (res.value[0] !== "" && res.value[1] !== "") {
+      if (res.isConfirmed) popUp();
+      addWord(res);
+      array.value.push({
+        polishName: res.value[0],
+        deutschName: res.value[1],
+      });
+    } else Swal.fire("Nie dodajesz żadnego słowa?", "kuźde", "question");
   });
 }
-async function getNewData() {
-  array.value = await $fetch("/api/words", {
-    method: "GET",
+
+async function addWord(res) {
+  return await $fetch("/api/addWord", {
+    method: "POST",
+    body: {
+      polishName: res.value[0],
+      deutschName: res.value[1],
+    },
   });
 }
 function filterArray() {
