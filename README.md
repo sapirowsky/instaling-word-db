@@ -1,20 +1,18 @@
-# Nuxt 3 Minimal Starter
-
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
-
 ## Setup
 
 Make sure to install the dependencies:
 
 ```bash
-# yarn
-yarn install
-
 # npm
 npm install
+```
+## Before Development Server
+Before starting development server you need to create and connect database with prisma.
+Make sure that you have your db link in environment variable called DATABASE_URL
 
-# pnpm
-pnpm install --shamefully-hoist
+then run
+```bash
+npx prisma push
 ```
 
 ## Development Server
@@ -38,5 +36,3 @@ Locally preview production build:
 ```bash
 npm run preview
 ```
-
-Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
