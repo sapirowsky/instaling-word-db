@@ -89,7 +89,7 @@ useHead({
   <div class="w-full flex flex-col justify-center items-center mt-1">
     <div class="space-x-4 flex items-center justify-center">
       <input
-        class="w-72 px-3 py-6 text-base border rounded"
+        class="w-72 px-3 py-6 text-base border rounded text-black"
         type="text"
         placeholder="Wyszukaj..."
         v-model="input"
