@@ -1,7 +1,7 @@
 <script setup>
 import Swal from "sweetalert2";
 
-let input = ref("");
+const input = ref("");
 
 const data = await $fetch("/api/words", {
   method: "GET",
