@@ -8,48 +8,64 @@ const data = await $fetch("/api/words", {
 });
 const array = ref(data);
 
-const setColorMode = (newTheme) => (useColorMode().preference = newTheme);
+const setColorMode = newTheme => (useColorMode().preference = newTheme);
 const filterArray = () =>
   array.value.filter((e) => e.polishName.includes(input.value));
 
+// function popUp() {
+//   Swal.fire({
+//     title: "Dodaj tłumaczenie",
+//     html: `
+//             <input placeholder="Polskie słowo" type="text" id="polish" class="border rounded p-1">
+//             <input placeholder="Niemieckie słowo" type="text" id="deutsch" class="border rounded mt-1 p-1">
+//           `,
+//     width: 400,
+//     padding: "3em",
+//     color: "#716add",
+//     confirmButtonText: "Dodaj następne",
+//     showDenyButton: true,
+//     denyButtonText: "ok (wyjdź)",
+//     background: "#fff",
+//     backdrop: `
+//         rgba(0,0,123,0.4)
+//         url("/images/nyan-cat.gif")
+//         left top
+//         no-repeat
+//       `,
+//     preConfirm: () => [
+//       document.querySelector("#polish").value,
+//       document.querySelector("#deutsch").value,
+//     ],
+//     preDeny: () => [
+//       document.querySelector("#polish").value,
+//       document.querySelector("#deutsch").value,
+//     ],
+//   }).then((res) => {
+//     if (res.value[0] !== "" && res.value[1] !== "") {
+//       if (res.isConfirmed) popUp();
+//       addWord(res);
+//       array.value.push({
+//         polishName: res.value[0],
+//         deutschName: res.value[1],
+//       });
+//     } else Swal.fire("Nie dodajesz żadnego słowa?", "kuźde", "question");
+//   });
+// }
+
 function popUp() {
   Swal.fire({
-    title: "Dodaj tłumaczenie",
-    html: `
-            <input placeholder="Polskie słowo" type="text" id="polish" class="border rounded p-1">
-            <input placeholder="Niemieckie słowo" type="text" id="deutsch" class="border rounded mt-1 p-1">
-          `,
-    width: 400,
-    padding: "3em",
-    color: "#716add",
-    confirmButtonText: "Dodaj następne",
-    showDenyButton: true,
-    denyButtonText: "ok (wyjdź)",
-    background: "#fff",
-    backdrop: `
-        rgba(0,0,123,0.4)
-        url("/images/nyan-cat.gif")
-        left top
-        no-repeat
-      `,
-    preConfirm: () => [
-      document.querySelector("#polish").value,
-      document.querySelector("#deutsch").value,
-    ],
-    preDeny: () => [
-      document.querySelector("#polish").value,
-      document.querySelector("#deutsch").value,
-    ],
-  }).then((res) => {
-    if (res.value[0] !== "" && res.value[1] !== "") {
-      if (res.isConfirmed) popUp();
-      addWord(res);
-      array.value.push({
-        polishName: res.value[0],
-        deutschName: res.value[1],
-      });
-    } else Swal.fire("Nie dodajesz żadnego słowa?", "kuźde", "question");
-  });
+  title: 'Jesteśmy w trakcie przebudowywania strony, funkcja dodawania została tymczasowo wyłączona. Przepraszamy za kłopot.',
+  width: 600,
+  padding: '3em',
+  color: '#716add',
+  background: '#fff url(/images/trees.png)',
+  backdrop: `
+    rgba(0,0,123,0.4)
+    url("/images/nyan-cat.gif")
+    left top
+    no-repeat
+  `
+})
 }
 
 async function addWord(res) {
