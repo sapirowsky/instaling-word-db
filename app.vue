@@ -1,105 +1,106 @@
 <script setup>
-import Swal from "sweetalert2";
+  import Swal from "sweetalert2"
 
-const input = ref("");
+  const input = ref("")
 
-const data = await $fetch("/api/words", {
-  method: "GET",
-});
-const array = ref(data);
+  const data = await $fetch("/api/words", {
+    method: "GET",
+  })
+  const array = ref(data)
 
-const setColorMode = newTheme => (useColorMode().preference = newTheme);
-const filterArray = () =>
-  array.value.filter((e) => e.polishName.includes(input.value));
+  const setColorMode = (newTheme) => (useColorMode().preference = newTheme)
+  const filterArray = () =>
+    array.value.filter((e) => e.polishName.includes(input.value))
 
-// function popUp() {
-//   Swal.fire({
-//     title: "Dodaj tłumaczenie",
-//     html: `
-//             <input placeholder="Polskie słowo" type="text" id="polish" class="border rounded p-1">
-//             <input placeholder="Niemieckie słowo" type="text" id="deutsch" class="border rounded mt-1 p-1">
-//           `,
-//     width: 400,
-//     padding: "3em",
-//     color: "#716add",
-//     confirmButtonText: "Dodaj następne",
-//     showDenyButton: true,
-//     denyButtonText: "ok (wyjdź)",
-//     background: "#fff",
-//     backdrop: `
-//         rgba(0,0,123,0.4)
-//         url("/images/nyan-cat.gif")
-//         left top
-//         no-repeat
-//       `,
-//     preConfirm: () => [
-//       document.querySelector("#polish").value,
-//       document.querySelector("#deutsch").value,
-//     ],
-//     preDeny: () => [
-//       document.querySelector("#polish").value,
-//       document.querySelector("#deutsch").value,
-//     ],
-//   }).then((res) => {
-//     if (res.value[0] !== "" && res.value[1] !== "") {
-//       if (res.isConfirmed) popUp();
-//       addWord(res);
-//       array.value.push({
-//         polishName: res.value[0],
-//         deutschName: res.value[1],
-//       });
-//     } else Swal.fire("Nie dodajesz żadnego słowa?", "kuźde", "question");
-//   });
-// }
+  // function popUp() {
+  //   Swal.fire({
+  //     title: "Dodaj tłumaczenie",
+  //     html: `
+  //             <input placeholder="Polskie słowo" type="text" id="polish" class="border rounded p-1">
+  //             <input placeholder="Niemieckie słowo" type="text" id="deutsch" class="border rounded mt-1 p-1">
+  //           `,
+  //     width: 400,
+  //     padding: "3em",
+  //     color: "#716add",
+  //     confirmButtonText: "Dodaj następne",
+  //     showDenyButton: true,
+  //     denyButtonText: "ok (wyjdź)",
+  //     background: "#fff",
+  //     backdrop: `
+  //         rgba(0,0,123,0.4)
+  //         url("/images/nyan-cat.gif")
+  //         left top
+  //         no-repeat
+  //       `,
+  //     preConfirm: () => [
+  //       document.querySelector("#polish").value,
+  //       document.querySelector("#deutsch").value,
+  //     ],
+  //     preDeny: () => [
+  //       document.querySelector("#polish").value,
+  //       document.querySelector("#deutsch").value,
+  //     ],
+  //   }).then((res) => {
+  //     if (res.value[0] !== "" && res.value[1] !== "") {
+  //       if (res.isConfirmed) popUp();
+  //       addWord(res);
+  //       array.value.push({
+  //         polishName: res.value[0],
+  //         deutschName: res.value[1],
+  //       });
+  //     } else Swal.fire("Nie dodajesz żadnego słowa?", "kuźde", "question");
+  //   });
+  // }
 
-function popUp() {
-  Swal.fire({
-  title: 'Jesteśmy w trakcie przebudowywania strony, funkcja dodawania została tymczasowo wyłączona. Przepraszamy za kłopot.',
-  width: 600,
-  padding: '3em',
-  color: '#716add',
-  background: '#fff url(/images/trees.png)',
-  backdrop: `
+  function popUp() {
+    Swal.fire({
+      title:
+        "Jesteśmy w trakcie przebudowywania strony, funkcja dodawania została tymczasowo wyłączona. Przepraszamy za kłopot.",
+      width: 600,
+      padding: "3em",
+      color: "#716add",
+      background: "#fff url(/images/trees.png)",
+      backdrop: `
     rgba(0,0,123,0.4)
     url("/images/nyan-cat.gif")
     left top
     no-repeat
-  `
-})
-}
+  `,
+    })
+  }
 
-async function addWord(res) {
-  return await $fetch("/api/addWord", {
-    method: "POST",
-    body: {
-      polishName: res.value[0],
-      deutschName: res.value[1],
+  async function addWord(res) {
+    return await $fetch("/api/addWord", {
+      method: "POST",
+      body: {
+        polishName: res.value[0],
+        deutschName: res.value[1],
+      },
+    })
+  }
+  useHead({
+    htmlAttrs: {
+      lang: "pl",
     },
-  });
-}
-useHead({
-  htmlAttrs: {
-    lang: "pl",
-  },
-  bodyAttrs: {
-    class: "bg-white dark:bg-slate-900 text-black dark:text-gray-300",
-  },
-  title: "wordDB",
-  meta: [
-    {
-      hid: "description",
-      name: "description",
-      content: "Baza danych słówek",
+    bodyAttrs: {
+      class: "bg-white dark:bg-slate-900 text-black dark:text-gray-300",
     },
-  ],
-  link: [
-    {
-      rel: "icon",
-      type: "image/x-icon",
-      href: "/favicon.ico",
-    },
-  ],
-});
+    title: "wordDB",
+    meta: [
+      {
+        hid: "description",
+        name: "description",
+        content: "Baza danych słówek",
+      },
+    ],
+    link: [
+      {
+        rel: "icon",
+        type: "image/x-icon",
+        href: "/favicon.ico",
+      },
+    ],
+  })
 </script>
 <template>
   <div class="w-full flex flex-col justify-center items-center mt-1">
@@ -119,16 +120,7 @@ useHead({
       </button>
       <button
         aria-label="Zmień motyw"
-        class="
-          hover:bg-gray-300
-          dark:hover:bg-gray-600
-          h-10
-          w-10
-          grid
-          place-items-center
-          rounded
-          hover:cursor-pointer
-        "
+        class="hover:bg-gray-300 dark:hover:bg-gray-600 h-10 w-10 grid place-items-center rounded hover:cursor-pointer"
         @click="
           setColorMode($colorMode.preference !== 'dark' ? 'dark' : 'light')
         "
