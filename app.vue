@@ -9,7 +9,6 @@
   const array = ref(data)
 
   const setColorMode = (newTheme) => (useColorMode().preference = newTheme)
-  console.log(array.value)
   const filterArray = () =>
     array.value.filter((e) => e.polishName.includes(input.value))
 
