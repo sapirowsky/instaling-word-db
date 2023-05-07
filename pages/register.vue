@@ -1,7 +1,4 @@
 <script setup>
-  definePageMeta({
-    middleware: ["auth"],
-  })
   const email = ref()
   const password = ref()
   const password2 = ref()
